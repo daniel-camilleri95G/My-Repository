@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Abortion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Created" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Apple_vs_FBI_case">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Created" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Hunting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Created" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="UK_better_of_outside_the_EU">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Created" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="Database_FYPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Abortions" EntityType="Self.Abortion" />
+    <EntitySet Name="Apple_vs_FBI_cases" EntityType="Self.Apple_vs_FBI_case" />
+    <EntitySet Name="Huntings" EntityType="Self.Hunting" />
+    <EntitySet Name="UK_better_of_outside_the_EUs" EntityType="Self.UK_better_of_outside_the_EU" />
+  </EntityContainer>
+</Schema>

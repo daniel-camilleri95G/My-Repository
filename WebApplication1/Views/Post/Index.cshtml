@@ -1,0 +1,148 @@
+﻿@model IEnumerable<WebApplication1.Models.Blog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+    @{
+        if (User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Create New", "Create")
+        }
+    }
+    @using (Html.BeginForm())
+    {
+    <p>
+        Category: @Html.DropDownList("cat", "All")
+        Authors: @Html.TextBox("auth", "") <br />
+        <input type="submit" value="Filter" />
+    </p>
+    }
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastModified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Authors)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sentiment)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+        if (User.Identity.IsAuthenticated)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.Raw(item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Authors)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.Raw(item.Sentiment)
+        </td>
+        @if (User.Identity.Name == item.Authors || User.IsInRole("Admin"))
+{
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+}
+else{}
+    </tr>
+}
+        else if (item.Status == "Published") { 
+        {
+    <tr>
+        @{string content = item.Content;}
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.Raw(item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Authors)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>  
+
+        <td>
+            
+            <script src="/Scripts/jquery-1.10.2.js"></script>
+            <script src="/Scripts/bootstrap.js"></script>
+            <script type="text/javascript">
+                document.open();
+                $.post(
+  'https://apiv2.indico.io/sentimenthq?key=575ba60a662da3aeb775a34fde1cc1b1',
+  JSON.stringify({
+      'data': "I am sad"
+  })
+    ).then(function (result) {
+        //var content = document.getElementById("demo");
+        //var html = result;
+        //content.innerHTML += html;
+
+        var demo = document.getElementById("demo");
+        demo.appendChild(document.createElement('tr'));
+        demo.appendChild(document.createTextNode(result));
+    }
+    );
+                console.log("test");
+                document.close();
+            </script> 
+            <p id="demo"></p>
+        </td>
+    </tr>
+        }  
+        }
+        }
+</table>

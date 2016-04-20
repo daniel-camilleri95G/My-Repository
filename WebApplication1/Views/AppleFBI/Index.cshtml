@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebApplication1.Models.Apple_vs_FBI_case>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>What's your say on the Apple vs FBI case?</h2>
+    <p>Do you think the goverments was ethically correct to oblige Apple to give them access to a client's phone?</p>
+@{
+  if (User.Identity.IsAuthenticated)
+                {
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+}
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date_Created)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date_Created)
+        </td>
+    @if (User.Identity.Name == item.Author || User.IsInRole("Admin"))
+    {
+        <td>
+            @if (User.IsInRole("Admin")) {
+            @Html.ActionLink("Sentiment |", "Sentiment", new { id = item.Id }) }
+            @Html.ActionLink("Edit |", "Edit", new { id=item.Id }) 
+            @Html.ActionLink("Details |", "Details", new { id=item.Id }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    }
+
+    </tr>
+}
+
+</table>

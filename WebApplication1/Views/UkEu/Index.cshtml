@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebApplication1.Models.UK_better_of_outside_the_EU>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>What's your say on the UK's exist from the European Union?</h2>
+    <p>The United Kingdom is going for a referendum inorder to decide whether to leave or stay in the European Union.
+       Do you think a seperation from the European Union will be of benefit for the United Kingdom?
+     </p>
+@{
+                if (User.Identity.IsAuthenticated)
+                {
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+}
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date_Created)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date_Created)
+        </td>
+@if (User.Identity.Name == item.Author || User.IsInRole("Admin"))
+{
+    <td>
+        @if (User.IsInRole("Admin"))
+        {
+            @Html.ActionLink("Sentiment |", "Sentiment", new { id = item.Id }) }
+        @Html.ActionLink("Edit |", "Edit", new { id = item.Id })
+        @Html.ActionLink("Details |", "Details", new { id = item.Id })
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+}
+    </tr>
+}
+
+</table>

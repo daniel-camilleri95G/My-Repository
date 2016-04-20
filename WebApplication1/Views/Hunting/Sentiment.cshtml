@@ -1,0 +1,50 @@
+﻿@model WebApplication1.Models.Hunting
+@{
+    ViewBag.Title = "Sentiment";
+}
+
+<h2>Sentiment</h2>
+
+
+<div>
+    <h4>Comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            <p id="help">@Html.DisplayFor(model => model.Comment)   </p>
+        </dd>
+        <td>
+
+            <script src="/Scripts/jquery-1.10.2.js"></script>
+            <script src="/Scripts/bootstrap.js"></script>
+            <script type="text/javascript">
+                document.open();
+                var abc = $('#help').html();
+                $.post(
+  'https://apiv2.indico.io/sentimenthq?key=575ba60a662da3aeb775a34fde1cc1b1',
+  JSON.stringify({
+      'data': abc
+  })
+    ).then(function (result) {
+        var demo = document.getElementById("demo");
+        demo.appendChild(document.createElement('tr'));
+        demo.appendChild(document.createTextNode(result));
+    }
+    );
+                console.log("test");
+                document.close();
+            </script>
+            <p id="demo"></p>
+        </td>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
